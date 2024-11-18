@@ -12,15 +12,27 @@ namespace ItemSystem
     public class ItemSelector
     {
         private readonly Dictionary<ItemCategory, HashSet<Item>> _selectedItems = new();
-        private readonly Dictionary<ItemCategory, int> _maxSelectionsCounts;
-        private readonly Dictionary<ItemCategory, bool> _unselectOldSelections;
+        private readonly Dictionary<ItemCategory, int> _maxSelectionsCounts = new();
+        private readonly Dictionary<ItemCategory, bool> _unselectOldSelections = new();
+        private readonly Dictionary<ItemCategory, ItemCategory[]> _overlappingSelections = new();
 
         public event Action<Item> OnItemSelected;
+        public event Action<Item> OnItemUnselected;
         
         public ItemSelector(IEnumerable<ItemMenuView> itemMenus, IRepository<ScriptableObject> repository)
         {
-            _maxSelectionsCounts = repository.GetItem<ItemCategoryConfigSO>().ToDictionary((config) => config.Category, (config) => config.MaxSelectedCount);
-            _unselectOldSelections = repository.GetItem<ItemCategoryConfigSO>().ToDictionary((config) => config.Category, (config) => config.UnselectOldSelection);
+            List<ItemCategoryConfigSO> categoryConfigs = repository.GetItem<ItemCategoryConfigSO>();
+            foreach (var config in categoryConfigs)
+            {
+                if (!_selectedItems.ContainsKey(config.Category))
+                {
+                    _selectedItems.Add(config.Category, new HashSet<Item>());
+                }
+                _maxSelectionsCounts.Add(config.Category, config.MaxSelectedCount);
+                _unselectOldSelections.Add(config.Category, config.UnselectOldSelection);
+                _overlappingSelections.Add(config.Category, config.OverlappedCategories);
+            }
+            
             foreach (var itemMenu in itemMenus)
             {
                 itemMenu.OnItemClicked += OnItemClicked;
@@ -29,11 +41,6 @@ namespace ItemSystem
 
         private void OnItemClicked(Item item)
         {
-            if (!_selectedItems.ContainsKey(item.Category))
-            {
-                _selectedItems.Add(item.Category, new HashSet<Item>());
-            }
-            
             if(_selectedItems.TryGetValue(item.Category, out var selected)
                && selected.Contains(item))
             {
@@ -44,6 +51,14 @@ namespace ItemSystem
                 if(_unselectOldSelections[item.Category] 
                    && _selectedItems[item.Category].Count >= _maxSelectionsCounts[item.Category])
                     Unselect(_selectedItems[item.Category].First());
+                
+                foreach (var overlappedCategory in _overlappingSelections[item.Category])
+                {
+                    foreach (var overlappedItem in _selectedItems[overlappedCategory].ToArray())
+                    {
+                        Unselect(overlappedItem);
+                    }
+                }
                 Select(item);
             }
         }
@@ -61,6 +76,7 @@ namespace ItemSystem
             || !_selectedItems[item.Category].Contains(item)) return;
             _selectedItems[item.Category].Remove(item);
             item.Selected.Value = false;
+            OnItemUnselected?.Invoke(item);
         }
     }
 }

@@ -8,9 +8,10 @@ namespace ItemSystem.UI
 {
     public class CategoryMenuSelector : MonoBehaviour
     {
+        [SerializeField] private bool _closeOnSecondClick = false;
+        
         private ItemMenuView[] _itemMenus;
         private ItemCategoryButton[] _categoryButtons;
-        private const bool _closeOnSecondClick = true;
         
         private readonly Dictionary<ItemCategory, List<ItemMenuView>> _itemMenusByCategories = new();
         

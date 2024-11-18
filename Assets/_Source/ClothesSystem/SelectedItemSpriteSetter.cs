@@ -13,6 +13,7 @@ namespace ClothesSystem
         [Header("Alternative")]
         [SerializeField] private Image _image;
         
+        private Item _item;
         private ItemSelector _itemSelector;
         
         [Inject]
@@ -20,6 +21,7 @@ namespace ClothesSystem
         {
             _itemSelector = itemSelector;
             _itemSelector.OnItemSelected += SetSprite;
+            _itemSelector.OnItemUnselected += SetTransparent;
         }
 
         private void SetSprite(Item item)
@@ -27,9 +29,31 @@ namespace ClothesSystem
             if(item.Category != _category) return;
             
             if (_spriteRenderer != null)
+            {
+                _spriteRenderer.enabled = true;
                 _spriteRenderer.sprite = item.Sprite;
+            }
             else
+            {
+                _image.enabled = true;
                 _image.sprite = item.Sprite;
+            }
+            
+            _item = item;
+        }
+        
+        private void SetTransparent(Item item)
+        {
+            if(_item != item) return;
+            
+            if (_spriteRenderer != null)
+            {
+                _spriteRenderer.enabled = false;
+            }
+            else
+            {
+                _spriteRenderer.enabled = false;
+            }
         }
         
         private void OnDestroy()

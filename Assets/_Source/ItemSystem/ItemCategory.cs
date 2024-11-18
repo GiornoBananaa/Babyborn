@@ -3,8 +3,11 @@
     public enum ItemCategory
     {
         None = 0,
-        Head = 1,
-        Body = 2,
-        Legs = 3,
+        Hair = 1,
+        Jacket = 2,
+        Shirt = 3,
+        Dress = 4,
+        Pants = 5,
+        Boots = 6,
     }
 }
