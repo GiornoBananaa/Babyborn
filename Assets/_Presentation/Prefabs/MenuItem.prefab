@@ -40,7 +40,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2750964098893385812
 CanvasRenderer:
@@ -96,6 +96,7 @@ MonoBehaviour:
   _image: {fileID: 6584738568714388604}
   _lock: {fileID: 3765992190659821169}
   _selection: {fileID: 7622205638237592059}
+  _cellSize: 104
 --- !u!114 &7676911620730275655
 MonoBehaviour:
   m_ObjectHideFlags: 0

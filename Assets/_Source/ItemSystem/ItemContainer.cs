@@ -40,7 +40,7 @@ namespace ItemSystem
                 _items.Add(itemData.Category, new HashSet<Item>());
             }
             
-            Item item = new Item(itemData.Sprite, itemData.Category, itemData.Unlocked);
+            Item item = new Item(itemData.Sprite, itemData.Category, itemData.SpriteCenterOffset, itemData.AlignSizeByWidth, itemData.Unlocked);
             _items[item.Category].Add(item);
         }
     }

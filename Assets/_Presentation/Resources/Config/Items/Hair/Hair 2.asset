@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Sprite>k__BackingField: {fileID: 21300000, guid: 38b3999d7d766b340bea7f989d46dba6, type: 3}
   <Category>k__BackingField: 1
+  <SpriteCenterOffset>k__BackingField: {x: 0, y: -0.08}
   <Unlocked>k__BackingField: 0
