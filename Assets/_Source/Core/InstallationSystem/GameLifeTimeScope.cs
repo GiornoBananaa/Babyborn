@@ -3,6 +3,8 @@ using ClothesSystem;
 using Core.InstallationSystem.DataLoadingSystem;
 using ItemSystem;
 using ItemSystem.UI;
+using LocationSystem;
+using LocationSystem.UI;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -13,6 +15,8 @@ namespace Core.InstallationSystem
     {
         [SerializeField] private ItemMenuView[] _itemMenuViews;
         [SerializeField] private ItemCategoryButton[] _itemCategoryButtons;
+        [SerializeField] private TransitionButton[] _locationButtons;
+        [SerializeField] private Location[] _locations;
         
         protected override void Configure(IContainerBuilder builder)
         {
@@ -30,21 +34,16 @@ namespace Core.InstallationSystem
             #region Item
             builder.Register<ItemContainer>(Lifetime.Singleton);
             builder.Register<ItemSelector>(Lifetime.Singleton);
-            #endregion
             
-            #region UI
             builder.RegisterComponent(_itemMenuViews).As<IEnumerable<ItemMenuView>>();
             builder.RegisterComponent(_itemCategoryButtons).As<IEnumerable<ItemCategoryButton>>();
-            
-            //builder.RegisterComponent(_itemMenuViews.AsEnumerable());
             #endregion
             
-            #region Input
-            //builder.RegisterComponent<InputListener>(_inputListener);
-            #endregion
-
-            #region Core
-            //builder.Register<Game>(Lifetime.Singleton);
+            #region Location
+            builder.Register<LocationTransition>(Lifetime.Singleton);
+            builder.RegisterComponent(_locations).As<IEnumerable<Location>>();
+            
+            builder.RegisterComponent(_locationButtons).As<IEnumerable<TransitionButton>>();
             #endregion
         }
 

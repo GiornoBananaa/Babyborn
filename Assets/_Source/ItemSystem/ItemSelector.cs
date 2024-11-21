@@ -70,7 +70,7 @@ namespace ItemSystem
             OnItemSelected?.Invoke(item);
         }
 
-        private void Unselect(Item item)
+        public void Unselect(Item item)
         {
             if(!_selectedItems.ContainsKey(item.Category)
             || !_selectedItems[item.Category].Contains(item)) return;

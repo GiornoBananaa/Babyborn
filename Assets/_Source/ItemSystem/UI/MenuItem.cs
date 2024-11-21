@@ -1,24 +1,30 @@
 ﻿using System;
 using R3;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace ItemSystem.UI
 {
-    public class MenuItem : MonoBehaviour
+    public class MenuItem : MonoBehaviour, IPointerDownHandler
     {
-        [field: SerializeField] public Button UseButton { get; private set; }
+        [SerializeField] private Button _button;
         [SerializeField] private Image _image;
         [SerializeField] private RectTransform _lock;
         [SerializeField] private RectTransform _selection;
         [SerializeField] private int _cellSize = 104;
+        [SerializeField] private bool _pointerUpForSelect = true;
         
         private Item _item;
         private CompositeDisposable _itemSubscription = new();
+
+        public UnityEvent OnSelected;
         
-        public void Construct(Item item)
+        public void Construct(Item item, bool pointerUpForSelect)
         {
+            _pointerUpForSelect = pointerUpForSelect;
             _item = item;
             _image.sprite = _item.Sprite;
             var rectTransform = _image.rectTransform;
@@ -36,8 +42,11 @@ namespace ItemSystem.UI
             ShowLock(!_item.Unlocked.Value);
             _itemSubscription.Add(_item.Unlocked.Subscribe(ShowLock));
             _itemSubscription.Add(item.Selected.Subscribe(ShowSelection));
+            
+            if(_pointerUpForSelect)
+                _button.onClick.AddListener(() => OnSelected?.Invoke());
         }
-
+        
         private void OnDestroy()
         {
             _itemSubscription?.Dispose();
@@ -50,8 +59,14 @@ namespace ItemSystem.UI
         
         private void ShowLock(bool isLocked)
         {
-            UseButton.interactable = !isLocked;
+            _button.interactable = !isLocked;
             _lock.gameObject.SetActive(isLocked);
+        }
+
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            if(!_pointerUpForSelect)
+                OnSelected?.Invoke();
         }
     }
 }

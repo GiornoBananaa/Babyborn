@@ -9,9 +9,11 @@ namespace ItemSystem.UI
     public class CategoryMenuSelector : MonoBehaviour
     {
         [SerializeField] private bool _closeOnSecondClick = false;
+        [SerializeField] private ItemCategory[] _selectableCategories;
         
         private ItemMenuView[] _itemMenus;
         private ItemCategoryButton[] _categoryButtons;
+        private HashSet<ItemCategory> _categories;
         
         private readonly Dictionary<ItemCategory, List<ItemMenuView>> _itemMenusByCategories = new();
         
@@ -20,8 +22,9 @@ namespace ItemSystem.UI
         [Inject]
         public void Construct(IEnumerable<ItemMenuView> itemMenus, IEnumerable<ItemCategoryButton> categoryButtons)
         {
-            _itemMenus = itemMenus.ToArray();
-            _categoryButtons = categoryButtons.ToArray();
+            _categories = new HashSet<ItemCategory>(_selectableCategories);
+            _itemMenus = itemMenus.Where(menu => _categories.Contains(menu.Category)).ToArray();
+            _categoryButtons = categoryButtons.Where(button => _categories.Contains(button.Category)).ToArray();
         }
         
         private void Start()

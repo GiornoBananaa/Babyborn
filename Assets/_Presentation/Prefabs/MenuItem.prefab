@@ -92,11 +92,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87aebe47cf284a089d98751183519a4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <UseButton>k__BackingField: {fileID: 7676911620730275655}
+  _button: {fileID: 7676911620730275655}
   _image: {fileID: 6584738568714388604}
   _lock: {fileID: 3765992190659821169}
   _selection: {fileID: 7622205638237592059}
   _cellSize: 104
+  _pointerUpForSelect: 1
+  OnSelected:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &7676911620730275655
 MonoBehaviour:
   m_ObjectHideFlags: 0
