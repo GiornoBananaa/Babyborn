@@ -19,7 +19,7 @@ namespace ItemSystem
         public event Action<Item> OnItemSelected;
         public event Action<Item> OnItemUnselected;
         
-        public ItemSelector(IEnumerable<ItemMenuView> itemMenus, IRepository<ScriptableObject> repository)
+        public ItemSelector(IEnumerable<ItemMenuView> itemMenus, IEnumerable<SceneItem> sceneItems, IRepository<ScriptableObject> repository)
         {
             List<ItemCategoryConfigSO> categoryConfigs = repository.GetItem<ItemCategoryConfigSO>();
             foreach (var config in categoryConfigs)
@@ -36,6 +36,11 @@ namespace ItemSystem
             foreach (var itemMenu in itemMenus)
             {
                 itemMenu.OnItemClicked += OnItemClicked;
+            }
+            
+            foreach (var item in sceneItems)
+            {
+                item.OnClick += OnItemClicked;
             }
         }
 

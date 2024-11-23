@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 571045d48cec88d48848f53bf379f673
+timeCreated: 1520403707
+licenseType: Store
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 113131
+  packageName: Free Draw - Simple Drawing on Sprites/2D Textures
+  packageVersion: 1.3
+  assetPath: Assets/FreeDraw/Scripts/Drawable.cs
+  uploadId: 686531

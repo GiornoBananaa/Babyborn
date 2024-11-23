@@ -11,6 +11,7 @@
         Boots = 6,
         Nails = 7,
         NailsColor = 8,
-        Stickers = 9,
+        Sticker = 9,
+        Tool = 10
     }
 }

@@ -14,6 +14,7 @@ namespace Core.InstallationSystem
     public class GameLifeTimeScope : LifetimeScope
     {
         [SerializeField] private ItemMenuView[] _itemMenuViews;
+        [SerializeField] private SceneItem[] _sceneItems;
         [SerializeField] private ItemCategoryButton[] _itemCategoryButtons;
         [SerializeField] private TransitionButton[] _locationButtons;
         [SerializeField] private Location[] _locations;
@@ -37,6 +38,7 @@ namespace Core.InstallationSystem
             
             builder.RegisterComponent(_itemMenuViews).As<IEnumerable<ItemMenuView>>();
             builder.RegisterComponent(_itemCategoryButtons).As<IEnumerable<ItemCategoryButton>>();
+            builder.RegisterComponent(_sceneItems).As<IEnumerable<SceneItem>>();
             #endregion
             
             #region Location

@@ -22,7 +22,12 @@ namespace ItemSystem
         {
             return _items[category].ToArray();
         }
-    
+        
+        public Item Get(ItemCategory category, int id)
+        {
+            return _items[category].First(item => item.ID == id);
+        }
+        
         public Dictionary<ItemCategory, Item[]> GetAll()
         {
             Dictionary<ItemCategory, Item[]> items = new Dictionary<ItemCategory, Item[]>();
@@ -40,7 +45,7 @@ namespace ItemSystem
                 _items.Add(itemData.Category, new HashSet<Item>());
             }
             
-            Item item = new Item(itemData.Sprite, itemData.Category, itemData.SpriteCenterOffset, itemData.AlignSizeByWidth, itemData.Unlocked);
+            Item item = new Item(itemData.Sprite, itemData.Category, itemData.SpriteCenterOffset, itemData.GetInstanceID(), itemData.AlignSizeByWidth, itemData.Unlocked);
             _items[item.Category].Add(item);
         }
     }
