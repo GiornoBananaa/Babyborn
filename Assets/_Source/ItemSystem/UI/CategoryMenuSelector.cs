@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using FreeDraw;
 using UnityEngine;
 using VContainer;
 
@@ -16,8 +17,10 @@ namespace ItemSystem.UI
         private HashSet<ItemCategory> _categories;
         
         private readonly Dictionary<ItemCategory, List<ItemMenuView>> _itemMenusByCategories = new();
-        
         [field: SerializeField] public ItemCategory SelectedCategory { get; private set; }
+        
+        public event Action<ItemCategory> OnCategorySelected;
+        public event Action<ItemCategory> OnCategoryUnselected;
         
         [Inject]
         public void Construct(IEnumerable<ItemMenuView> itemMenus, IEnumerable<ItemCategoryButton> categoryButtons)
@@ -59,6 +62,7 @@ namespace ItemSystem.UI
             }
             
             SelectedCategory = category;
+            OnCategorySelected?.Invoke(SelectedCategory);
         }
         
         public void UnselectCategory()
@@ -68,9 +72,10 @@ namespace ItemSystem.UI
                 HideItemMenu(itemMenu);
             }
             
+            ItemCategory unselectedCategory = SelectedCategory;
             SelectedCategory = default;
         }
-
+        
         private void OnCategoryClicked(ItemCategory category)
         {
             if (SelectedCategory == category && _closeOnSecondClick)
@@ -91,6 +96,7 @@ namespace ItemSystem.UI
         private void HideItemMenu(ItemMenuView itemMenu)
         {
             itemMenu.gameObject.SetActive(false);
+            OnCategoryUnselected?.Invoke(itemMenu.Category);
         }
 
         private void AddButtonListeners()

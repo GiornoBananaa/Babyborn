@@ -6,7 +6,8 @@ using VContainer;
 
 namespace ItemSystem.UI
 {
-    public class SceneItemsActivator : MonoBehaviour
+    
+    public class ActivatorForSelectedItem : MonoBehaviour
     {
         [Serializable]
         public class ItemActivationObjects

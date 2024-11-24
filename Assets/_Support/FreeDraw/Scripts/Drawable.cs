@@ -44,8 +44,9 @@ namespace FreeDraw
         // Used to reference THIS specific file without making all methods static
         public static Drawable drawable;
         // MUST HAVE READ/WRITE enabled set in the file editor of Unity
-        Sprite drawable_sprite;
-        Texture2D drawable_texture;
+        private Sprite drawable_sprite;
+        private Texture2D drawable_texture;
+        private SpriteRenderer _spriteRenderer;
 
         Vector2 previous_drag_position;
         Color[] clean_colours_array;
@@ -54,30 +55,46 @@ namespace FreeDraw
         bool mouse_was_previously_held_down = false;
         bool no_drawing_on_current_drag = false;
         [SerializeField] private string spriteFileName;
+        [SerializeField] private bool DeleteData;
 
-        /*
-        private void Start()
-        {
-            LoadSprite();
-        }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             SaveSprite();
-        }*/
+        }
 
         private void SaveSprite()
         {
             byte[] textureBytes = drawable_sprite.texture.EncodeToPNG();
-            File.WriteAllBytes(Application.persistentDataPath + spriteFileName, textureBytes);
+            if (!File.Exists(Application.persistentDataPath + "/" + spriteFileName))
+            {
+                File.Create(Application.persistentDataPath + "/" + spriteFileName).Write(textureBytes);
+            }
+            else
+            {
+                File.WriteAllBytes(Application.persistentDataPath + "/" + spriteFileName, textureBytes);
+            }
         }
 
         private void LoadSprite()
         {
-            byte[] textureBytes = File.ReadAllBytes(Application.persistentDataPath + spriteFileName);
-            Texture2D loadedTexture = new Texture2D(0, 0);
-            loadedTexture.LoadImage(textureBytes);
-            drawable_sprite = Sprite.Create(loadedTexture, new Rect(0f, 0f, loadedTexture.width, loadedTexture.height), Vector2.zero);
+            bool textureFileExists = File.Exists(Application.persistentDataPath + "/" + spriteFileName);
+            if(DeleteData)
+                File.Delete(Application.persistentDataPath + "/" + spriteFileName);
+            else if(textureFileExists)
+            {
+                byte[] textureBytes = File.ReadAllBytes(Application.persistentDataPath + "/" + spriteFileName);
+                Texture2D loadedTexture = new Texture2D(0, 0);
+                loadedTexture.LoadImage(textureBytes);
+                for (int x = 0; x <= _spriteRenderer.sprite.texture.width; x++)
+                {
+                    for (int y = 0; y <= _spriteRenderer.sprite.texture.height; y++)
+                    {
+                        drawable_texture.SetPixel(x, y, loadedTexture.GetPixel(x, y));
+                    }
+                }
+                drawable_texture.Apply();
+            }
         }
 
         //////////////////////////////////////////////////////////////////////////////
@@ -129,9 +146,6 @@ namespace FreeDraw
             // 4. If dragging, update where we were previously
             previous_drag_position = pixel_pos;
         }
-
-
-
         
         // Default brush type. Has width and colour.
         // Pass in a point in WORLD coordinates
@@ -158,7 +172,6 @@ namespace FreeDraw
             previous_drag_position = pixel_pos;
         }
 
-
         // Helper method used by UI to set what brush the user wants
         // Create a new one for any new brushes you implement
         public void SetPenBrush()
@@ -166,7 +179,6 @@ namespace FreeDraw
             // PenBrush is the NAME of the method we want to set as our current brush
             current_brush = PenBrush;
         }
-
 
         // FILL BRUSH, from Francesco Filipini
         public void FillBrush(Vector2 world_position)
@@ -206,18 +218,13 @@ namespace FreeDraw
             current_brush = FillBrush;
         }
         //////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
+        
         // This is where the magic happens.
         // Detects when user is left clicking, which then call the appropriate function
         void Update()
         {
             // Is the user holding down the left mouse button?
-            bool mouse_held_down = Pointer.current.press.IsPressed(); // TODO New input system
+            bool mouse_held_down = Pointer.current.press.IsPressed();
             if (mouse_held_down && !no_drawing_on_current_drag)
             {
                 //Debug.Log(mouse_held_down);
@@ -254,8 +261,6 @@ namespace FreeDraw
             mouse_was_previously_held_down = mouse_held_down;
         }
 
-
-
         // Set the colour of pixels in a straight line from start_point all the way to end_point, to ensure everything inbetween is coloured
         public void ColourBetween(Vector2 start_point, Vector2 end_point, int width, Color color)
         {
@@ -274,11 +279,7 @@ namespace FreeDraw
                 MarkPixelsToColour(cur_position, width, color);
             }
         }
-
-
-
-
-
+        
         public void MarkPixelsToColour(Vector2 center_pixel, int pen_thickness, Color color_of_pen)
         {
             // Figure out how many pixels we need to colour in each direction (x and y)
@@ -317,8 +318,7 @@ namespace FreeDraw
             drawable_texture.SetPixels32(cur_colors);
             drawable_texture.Apply();
         }
-
-
+        
         // Directly colours pixels. This method is slower than using MarkPixelsToColour then using ApplyMarkedPixelChanges
         // SetPixels32 is far faster than SetPixel
         // Colours both the center pixel, and a number of pixels around the center pixel based on pen_thickness (pen radius)
@@ -339,8 +339,7 @@ namespace FreeDraw
 
             drawable_texture.Apply();
         }
-
-
+        
         public Vector2 WorldToPixelCoordinates(Vector2 world_position)
         {
             // Change coordinates to local coordinates of this image
@@ -382,27 +381,28 @@ namespace FreeDraw
             drawable_texture.SetPixels(clean_colours_array);
             drawable_texture.Apply();
         }
-
-
         
         void Awake()
         {
+            _spriteRenderer = GetComponent<SpriteRenderer>();
             drawable = this;
             // DEFAULT BRUSH SET HERE
             current_brush = PenBrush;
-
-            drawable_sprite = this.GetComponent<SpriteRenderer>().sprite;
+            
+            drawable_sprite = _spriteRenderer.sprite;
             drawable_texture = drawable_sprite.texture;
-
+            
             // Initialize clean pixels to use
             clean_colours_array = new Color[(int)drawable_sprite.rect.width * (int)drawable_sprite.rect.height];
             for (int x = 0; x < clean_colours_array.Length; x++)
                 clean_colours_array[x] = Reset_Colour;
-
             // Should we reset our canvas image when we hit play in the editor?
-            if (Reset_Canvas_On_Play)
+            //if (Reset_Canvas_On_Play)
                 ResetCanvas();
-			else if (Reset_To_This_Texture_On_Play)
+            
+            LoadSprite();
+            
+			if (!Reset_Canvas_On_Play && Reset_To_This_Texture_On_Play)
 			{
 				Graphics.CopyTexture(reset_texture, drawable_texture);
 				//drawable_texture = reset_texture;
