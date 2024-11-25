@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf7504cc8646448fb1fe20dd8413f5e4, type: 3}
   m_Name: Sticker 1
   m_EditorClassIdentifier: 
-  <Sprite>k__BackingField: {fileID: 21300000, guid: 62d1f83ae0ac45a4ab6bbd74cc83f16e, type: 3}
   <Category>k__BackingField: 9
   <SpriteCenterOffset>k__BackingField: {x: 0, y: 0}
   <AlignSizeByWidth>k__BackingField: 1
   <Unlocked>k__BackingField: 0
+  <Sprites>k__BackingField:
+  - {fileID: 21300000, guid: 75a497568899d754e85fb9912d747b4b, type: 3}

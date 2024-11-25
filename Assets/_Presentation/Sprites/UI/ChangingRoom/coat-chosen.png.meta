@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: daf09f251b5494a4792a0b0d8a03b018
+guid: 97612d064516e9f4db2f79223f126d73
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4486446628636185623
-    second: coat-chosen_0
+      213: 291473976050272172
+    second: Coat-chosen_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -72,7 +72,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: coat-chosen_0
+      name: Coat-chosen_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 3200
-        height: 1932
+        height: 1926
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 714db93407f034e30800000000000000
-      internalID: 4486446628636185623
+      spriteID: ca74fb379068b0400800000000000000
+      internalID: 291473976050272172
       vertices: []
       indices: 
       edges: []
@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Coat-chosen_0: 291473976050272172
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -8,25 +8,22 @@ namespace ItemSystem.DraggableItems
 {
     public class DraggableItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler
     {
-        [SerializeField] private float _scaleFactor = 1f;
         [SerializeField] protected SpriteRenderer _spriteRenderer;
-        private Vector2 _normalScale;
         private Vector2 _offset;
         private Vector2 _defaultPosition;
         private Tween _animation;
         private bool _isAnimation;
         private bool _eventDataRegistered;
         private Camera _camera;
-
+        
         public event Action<DraggableItem> OnReturn;
         public event Action<DraggableItem> OnDragEnd;
         
         public bool IsDragged { get; private set; }
-
+        
         private void Awake()
         {
             _defaultPosition = transform.localPosition;
-            _normalScale = transform.localScale;
             _camera = Camera.main;
         }
         
@@ -36,6 +33,12 @@ namespace ItemSystem.DraggableItems
             
             Vector2 mouseWorldPos = _camera!.ScreenToWorldPoint(Pointer.current.position.value);
             transform.position = mouseWorldPos + _offset;
+        }
+
+        private void OnDestroy()
+        {
+            _animation?.Kill();
+            OnReturn?.Invoke(this);
         }
 
         public void SetSprite(Sprite sprite)
@@ -58,6 +61,8 @@ namespace ItemSystem.DraggableItems
         
         public void OnPointerUp(PointerEventData eventData)
         {
+            if(eventData.pointerPress == gameObject)
+                eventData.pointerPress = null;
             if (!enabled || _isAnimation || !IsDragged) return;
             EndDrag();
         }
@@ -69,7 +74,6 @@ namespace ItemSystem.DraggableItems
                 _animation?.Kill();
             }
             IsDragged = true;
-            transform.localScale = _normalScale * _scaleFactor;
             _offset = transform.position - _camera!.ScreenToWorldPoint(Pointer.current.position.value);
             OnDragStarted();
         }
@@ -77,7 +81,6 @@ namespace ItemSystem.DraggableItems
         public void EndDrag()
         {
             IsDragged = false;
-            transform.localScale = _normalScale;
             _eventDataRegistered = false;
             OnDragEnded();
             OnDragEnd?.Invoke(this);
@@ -90,11 +93,11 @@ namespace ItemSystem.DraggableItems
             if(IsDragged)
             {
                 IsDragged = false;
-                transform.localScale = _normalScale;
             }
             _animation = transform.DOLocalMove(_defaultPosition, 0.2f).OnComplete(() =>
             {
                 _isAnimation = false;
+                _animation.Complete();
                 OnReturn?.Invoke(this);
             });
         }

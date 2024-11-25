@@ -6,7 +6,8 @@ namespace ItemSystem
 {
     public class Item
     {
-        public readonly Sprite Sprite;
+        public readonly Sprite[] Sprites;
+        public Sprite Sprite => Sprites[0];
         public readonly ItemCategory Category;
         public readonly Vector2 CenterOffset;
         public readonly bool AlignSizeByWidth;
@@ -14,9 +15,9 @@ namespace ItemSystem
         public readonly ReactiveProperty<bool> Unlocked = new(false);
         public readonly ReactiveProperty<bool> Selected = new(false);
 
-        public Item(Sprite sprite, ItemCategory category, Vector2 centerOffset, int id, bool alignSizeByWidth, bool unlocked)
+        public Item(Sprite[] sprites, ItemCategory category, Vector2 centerOffset, int id, bool alignSizeByWidth, bool unlocked)
         {
-            Sprite = sprite;
+            Sprites = sprites;
             Category = category;
             CenterOffset = centerOffset;
             AlignSizeByWidth = alignSizeByWidth;

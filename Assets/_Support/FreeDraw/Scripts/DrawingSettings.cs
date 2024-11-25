@@ -3,12 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace FreeDraw
 {
     // Helper methods used to set drawing settings
     public class DrawingSettings : MonoBehaviour
     {
+        [SerializeField] private Slider _slider;
+        [SerializeField] private Image _sliderFillImage;
         public float Transparency = 1f;
         public int StartWidth = 100;
         public Sprite Texture;
@@ -17,6 +20,7 @@ namespace FreeDraw
         {
             SetMarkerWidth(StartWidth);
             ChooseBrush();
+            _slider.onValueChanged.AddListener(SetMarkerWidth);
         }
 
         // Changing pen settings is easy as changing the static properties Drawable.Pen_Colour and Drawable.Pen_Width
@@ -31,13 +35,17 @@ namespace FreeDraw
         {
             Drawable.Pen_Width = new_width;
         }
-
+        
+        public void SetMarkerWidth(float new_width)
+        {
+            SetMarkerWidth((int)new_width);
+            _sliderFillImage.fillAmount = (new_width-_slider.minValue)/(_slider.maxValue-_slider.minValue);
+        }
+        
         public void SetTransparency(float amount)
         {
             Transparency = amount;
-            Color c = Drawable.Pen_Colour;
-            c.a = amount;
-            Drawable.Pen_Colour = c;
+            Drawable.Transparency = Transparency;
         }
         
         public void SetTexture(Sprite itemSprite)

@@ -14,16 +14,17 @@ namespace ItemSystem.UI
         [SerializeField] private Image _image;
         [SerializeField] private RectTransform _lock;
         [SerializeField] private RectTransform _selection;
-        [SerializeField] private int _cellSize = 104;
         [SerializeField] private bool _pointerUpForSelect = true;
         
+        private int _cellSize;
         private Item _item;
         private CompositeDisposable _itemSubscription = new();
 
         public UnityEvent OnSelected;
         
-        public void Construct(Item item, bool pointerUpForSelect)
+        public void Construct(Item item, int cellSize, bool pointerUpForSelect)
         {
+            _cellSize = cellSize;
             _pointerUpForSelect = pointerUpForSelect;
             _item = item;
             _image.sprite = _item.Sprite;

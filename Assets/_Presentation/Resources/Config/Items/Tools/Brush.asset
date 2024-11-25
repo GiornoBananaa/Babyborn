@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf7504cc8646448fb1fe20dd8413f5e4, type: 3}
   m_Name: Brush
   m_EditorClassIdentifier: 
-  <Sprite>k__BackingField: {fileID: 21300000, guid: bd7e9961992cc884dab31a54c7ee5d91, type: 3}
   <Category>k__BackingField: 10
   <SpriteCenterOffset>k__BackingField: {x: 0, y: 0}
   <AlignSizeByWidth>k__BackingField: 0
   <Unlocked>k__BackingField: 0
+  <Sprites>k__BackingField:
+  - {fileID: 0}

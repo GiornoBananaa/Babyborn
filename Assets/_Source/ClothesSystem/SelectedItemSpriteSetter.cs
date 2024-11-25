@@ -8,8 +8,10 @@ namespace ClothesSystem
     public class SelectedItemSpriteSetter : MonoBehaviour
     {
         [SerializeField] public ItemCategory _category;
+        [SerializeField] public int _spriteIndex;
         [Space(5)]
         [SerializeField] private SpriteRenderer _spriteRenderer;
+        [SerializeField] private SpriteMask _spriteMask;
         [Header("Alternative")]
         [SerializeField] private Image _image;
         
@@ -31,12 +33,16 @@ namespace ClothesSystem
             if (_spriteRenderer != null)
             {
                 _spriteRenderer.enabled = true;
-                _spriteRenderer.sprite = item.Sprite;
+                _spriteRenderer.sprite = item.Sprites[_spriteIndex];
+                if (_spriteMask != null)
+                {
+                    _spriteMask.sprite = item.Sprites[_spriteIndex];
+                }
             }
             else
             {
                 _image.enabled = true;
-                _image.sprite = item.Sprite;
+                _image.sprite = item.Sprites[_spriteIndex];
             }
             
             _item = item;

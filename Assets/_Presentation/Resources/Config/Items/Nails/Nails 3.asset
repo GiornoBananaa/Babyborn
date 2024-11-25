@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf7504cc8646448fb1fe20dd8413f5e4, type: 3}
   m_Name: Nails 3
   m_EditorClassIdentifier: 
-  <Sprite>k__BackingField: {fileID: 21300000, guid: b1aac3da9c01cb5478bdd74c427481f3, type: 3}
   <Category>k__BackingField: 7
-  <SpriteCenterOffset>k__BackingField: {x: 0, y: -0.1}
-  <AlignSizeByWidth>k__BackingField: 1
+  <SpriteCenterOffset>k__BackingField: {x: 0, y: 0}
+  <AlignSizeByWidth>k__BackingField: 0
   <Unlocked>k__BackingField: 0
+  <Sprites>k__BackingField:
+  - {fileID: -9210265843542697515, guid: 664693eda93da7545ba08fd85d4487bb, type: 3}
+  - {fileID: 7021420947158814787, guid: c13b8fd3b82b3dc409daf298a4515ed7, type: 3}

@@ -12,7 +12,6 @@ namespace ItemSystem.UI
     public class SceneItem : MonoBehaviour, IPointerDownHandler
     {
         [SerializeField] private Button _button;
-        [SerializeField] private Image _image;
         [SerializeField] private RectTransform _lock;
         [SerializeField] private RectTransform _selection;
         [SerializeField] private bool _pointerUpForSelect = true;
@@ -32,11 +31,6 @@ namespace ItemSystem.UI
         private void SetItem(Item item)
         {
             _item = item;
-            _image.sprite = _item.Sprite;
-            var rectTransform = _image.rectTransform;
-            rectTransform.pivot = new Vector2(0.5f, 0.5f) - _item.CenterOffset;
-            float spriteRatio = _item.Sprite.bounds.size.x / _item.Sprite.bounds.size.y;
-            rectTransform.sizeDelta = new Vector2(spriteRatio * rectTransform.sizeDelta.y, rectTransform.sizeDelta.y);
             ShowLock(!_item.Unlocked.Value);
             _itemSubscription.Add(_item.Unlocked.Subscribe(ShowLock));
             _itemSubscription.Add(item.Selected.Subscribe(ShowSelection));

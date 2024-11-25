@@ -15,6 +15,7 @@ namespace ItemSystem.UI
         [SerializeField] private RectTransform _panel;
         [SerializeField] private RectTransform _itemListParent;
         [SerializeField] private MenuItem _itemPrefab;
+        [SerializeField] private int _cellSize = 104;
         
         private readonly List<MenuItem> _menuItems = new();
         private Item[] _items;
@@ -35,7 +36,7 @@ namespace ItemSystem.UI
             foreach (Item item in _items)
             {
                 MenuItem menuItem = Instantiate(_itemPrefab, _itemListParent);
-                menuItem.Construct(item, _categoryConfigs[item.Category].SelectByPointerUp);
+                menuItem.Construct(item, _cellSize, _categoryConfigs[item.Category].SelectByPointerUp);
                 _menuItems.Add(menuItem);
                 menuItem.OnSelected.AddListener(() => OnItemClicked?.Invoke(item));
             }

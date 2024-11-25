@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf7504cc8646448fb1fe20dd8413f5e4, type: 3}
   m_Name: Jacket 3
   m_EditorClassIdentifier: 
-  <Sprite>k__BackingField: {fileID: 21300000, guid: 51a6aa6c3ecd8cb49adb070760017cf4, type: 3}
   <Category>k__BackingField: 2
   <SpriteCenterOffset>k__BackingField: {x: 0, y: 0}
   <AlignSizeByWidth>k__BackingField: 1
   <Unlocked>k__BackingField: 0
+  <Sprites>k__BackingField:
+  - {fileID: 21300000, guid: 51a6aa6c3ecd8cb49adb070760017cf4, type: 3}

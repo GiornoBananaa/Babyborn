@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: a6a875afa28bc9b40ac8e15acd56a06e
+guid: 19b12710da1fd46449c4e344b56471de
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8195747030401001070
-    second: shirts-chosen_0
+      213: 137790362465059968
+    second: Shirt-choosen_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -72,7 +72,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: shirts-chosen_0
+      name: Shirt-choosen_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 3200
-        height: 1932
+        height: 1926
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2995cffaf7bd24e80800000000000000
-      internalID: -8195747030401001070
+      spriteID: 084c338ca9789e100800000000000000
+      internalID: 137790362465059968
       vertices: []
       indices: 
       edges: []
@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Shirt-choosen_0: 137790362465059968
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

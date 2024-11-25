@@ -1,10 +1,6 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 namespace FreeDraw
@@ -19,6 +15,7 @@ namespace FreeDraw
     {
         // PEN COLOUR
         public static Color Pen_Colour = Color.red;     // Change these to change the default drawing settings
+        public static float Transparency = 1f;
         // PEN WIDTH (actually, it's a radius, in pixels)
         public static int Pen_Width = 3;
 
@@ -80,7 +77,10 @@ namespace FreeDraw
         {
             bool textureFileExists = File.Exists(Application.persistentDataPath + "/" + spriteFileName);
             if(DeleteData)
+            {
                 File.Delete(Application.persistentDataPath + "/" + spriteFileName);
+                ResetCanvas();
+            }
             else if(textureFileExists)
             {
                 byte[] textureBytes = File.ReadAllBytes(Application.persistentDataPath + "/" + spriteFileName);
@@ -90,7 +90,7 @@ namespace FreeDraw
                 {
                     for (int y = 0; y <= _spriteRenderer.sprite.texture.height; y++)
                     {
-                        drawable_texture.SetPixel(x, y, loadedTexture.GetPixel(x, y));
+                        drawable_texture.SetPixel(x, y, loadedTexture.GetPixelBilinear(x, y));
                     }
                 }
                 drawable_texture.Apply();
@@ -98,11 +98,11 @@ namespace FreeDraw
         }
 
         //////////////////////////////////////////////////////////////////////////////
-// BRUSH TYPES. Implement your own here
-// How to write your own brush method:
-// 1. Copy and rename the BrushTemplate() method below with your own brush
-// 2. Write your own code inside of this method
-// 3. Assign this method to the current_brush variable (see how PenBrush does this)
+        // BRUSH TYPES. Implement your own here
+        // How to write your own brush method:
+        // 1. Copy and rename the BrushTemplate() method below with your own brush
+        // 2. Write your own code inside of this method
+        // 3. Assign this method to the current_brush variable (see how PenBrush does this)
 
 
         // When you want to make your own type of brush effects,
@@ -297,7 +297,13 @@ namespace FreeDraw
                 {
                     if(Vector2.Distance(new Vector2(center_x, center_y), new Vector2(x, y)) > pen_thickness ) 
                         continue;
-                    MarkPixelToChange(x, y, useTexture ? texture.texture.GetPixel(x, y) : color_of_pen);
+                    
+                    Color newColor = useTexture ? texture.texture.GetPixel(x, y) : color_of_pen;
+                    /*Color oldColor = drawable_texture.GetPixel(x, y);
+                    //Debug.Log(newColor + " " + oldColor + " | " + Transparency + " = " + Color.Lerp(oldColor, newColor, Transparency));
+                    newColor = Color.Lerp(oldColor, newColor, Transparency);
+                    newColor.a = 1;*/
+                    MarkPixelToChange(x, y, newColor);
                 }
             }
         }
@@ -396,9 +402,6 @@ namespace FreeDraw
             clean_colours_array = new Color[(int)drawable_sprite.rect.width * (int)drawable_sprite.rect.height];
             for (int x = 0; x < clean_colours_array.Length; x++)
                 clean_colours_array[x] = Reset_Colour;
-            // Should we reset our canvas image when we hit play in the editor?
-            //if (Reset_Canvas_On_Play)
-                ResetCanvas();
             
             LoadSprite();
             

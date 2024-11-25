@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: b8222e559eeb2ee4b9f41eea8193290a
+guid: d23df23e71bb7a94a9b40e4b514bcc0c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6199720543617963891
-    second: Body_0
+      213: 5561031024364186559
+    second: Skincolor1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,12 +46,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 700
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -72,7 +72,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Body_0
+      name: Skincolor1_0
       rect:
         serializedVersion: 2
         x: 43
-        y: 69
+        y: 71
         width: 1548
-        height: 3312
+        height: 3310
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d88a5fa530b26f9a0800000000000000
-      internalID: -6199720543617963891
+      spriteID: fbb6728c040cc2d40800000000000000
+      internalID: 5561031024364186559
       vertices: []
       indices: 
       edges: []
@@ -151,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Skincolor1_0: 5561031024364186559
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
