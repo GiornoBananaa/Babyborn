@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using ItemSystem.DraggableItems;
 using UnityEngine;
@@ -23,22 +22,8 @@ namespace StickersSystem
                 {
                     CopyStick(parent, sticker);
                 }
-
-                UpdateRenderers();
             }
             UpdateSticker(sticker);
-        }
-
-        private async UniTaskVoid UpdateRenderers()
-        {
-            await UniTask.DelayFrame(2);
-            foreach (var originalSticker in _originalStickers.Values)
-            {
-                originalSticker.SpriteRenderer.sortingOrder =
-                    originalSticker.SpriteRenderer.sortingOrder == 5 ? 6 : 5;
-                originalSticker.SpriteRenderer.maskInteraction = SpriteMaskInteraction.None;
-                originalSticker.SpriteRenderer.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
-            }
         }
         
         public void RemoveSticker(Sticker sticker)
@@ -60,7 +45,6 @@ namespace StickersSystem
                 copy.transform.localScale = sticker.transform.localScale;
                 copy.transform.localPosition = sticker.transform.localPosition;
                 copy.transform.localRotation = sticker.transform.localRotation;
-                copy.SpriteRenderer.sortingOrder = copy.SpriteRenderer.sortingOrder == 5 ? 6 : 5;
             }
         }
         

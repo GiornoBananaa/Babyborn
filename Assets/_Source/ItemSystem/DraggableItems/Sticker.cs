@@ -1,4 +1,5 @@
 using System;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace ItemSystem.DraggableItems
@@ -76,7 +77,7 @@ namespace ItemSystem.DraggableItems
             if (surface != null)
             {
                 transform.SetParent(surface.transform);
-                _spriteRenderer.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
+                //_spriteRenderer.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
             }
             else
             {

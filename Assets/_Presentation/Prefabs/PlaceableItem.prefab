@@ -49,7 +49,7 @@ MonoBehaviour:
   _spriteRenderer: {fileID: 6076893251126166687}
   _surfaceLayerMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 64
 --- !u!212 &6076893251126166687
 SpriteRenderer:
   m_ObjectHideFlags: 0
