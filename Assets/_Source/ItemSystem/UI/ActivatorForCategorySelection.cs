@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace ItemSystem.UI
 {
@@ -11,41 +12,50 @@ namespace ItemSystem.UI
         public class ActivationObjectsByCategory
         {
             public ItemCategory ItemCategory;
-            public Behaviour[] Objects;
+            public Behaviour[] Behaviours;
+            public GameObject[] Objects;
         }
         
         [SerializeField] public CategoryMenuSelector _menuSelector;
         [SerializeField] public ActivationObjectsByCategory[] _sceneItems;
         
-        private Dictionary<ItemCategory, Behaviour[]> _items;
+        private Dictionary<ItemCategory, ActivationObjectsByCategory> _activations;
         private Item _item;
         
         public void Awake()
         {
             _menuSelector.OnCategorySelected += OnSelect;
             _menuSelector.OnCategoryUnselected += OnUnselect;
-            _items = _sceneItems.ToDictionary(
+            _activations = _sceneItems.ToDictionary(
                 activation => activation.ItemCategory, 
-                activation => activation.Objects);
+                activation => activation);
         }
 
         private void OnSelect(ItemCategory item)
         {
-            if(!_items.TryGetValue(item, out var behaviours)) return;
+            if(!_activations.TryGetValue(item, out var activations)) return;
             
-            foreach (var obj in behaviours)
+            foreach (var behaviour in activations.Behaviours)
             {
-                obj.enabled = true;
+                behaviour.enabled = true;
+            }
+            foreach (var obj in activations.Objects)
+            {
+                obj.SetActive(true);
             }
         }
         
         private void OnUnselect(ItemCategory item)
         {
-            if(!_items.TryGetValue(item, out var behaviours)) return;
+            if(!_activations.TryGetValue(item, out var activations)) return;
             
-            foreach (var obj in behaviours)
+            foreach (var behaviour in activations.Behaviours)
             {
-                obj.enabled = false;
+                behaviour.enabled = false;
+            }
+            foreach (var obj in activations.Objects)
+            {
+                obj.SetActive(false);
             }
         }
         

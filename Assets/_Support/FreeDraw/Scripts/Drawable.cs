@@ -51,6 +51,7 @@ namespace FreeDraw
         Color32[] cur_colors;
         bool mouse_was_previously_held_down = false;
         bool no_drawing_on_current_drag = false;
+        bool canRelease = false;
         [SerializeField] private string spriteFileName;
         [SerializeField] private bool DeleteData;
 
@@ -90,7 +91,7 @@ namespace FreeDraw
                 {
                     for (int y = 0; y <= _spriteRenderer.sprite.texture.height; y++)
                     {
-                        drawable_texture.SetPixel(x, y, loadedTexture.GetPixelBilinear(x, y));
+                        drawable_texture.SetPixel(x, y, loadedTexture.GetPixel(x, y));
                     }
                 }
                 drawable_texture.Apply();
@@ -227,6 +228,7 @@ namespace FreeDraw
             bool mouse_held_down = Pointer.current.press.IsPressed();
             if (mouse_held_down && !no_drawing_on_current_drag)
             {
+                canRelease = true;
                 //Debug.Log(mouse_held_down);
                 // Convert mouse coordinates to world coordinates
                 Vector2 mouse_world_position = Camera.main.ScreenToWorldPoint(Pointer.current.position.value);
@@ -257,6 +259,11 @@ namespace FreeDraw
             {
                 previous_drag_position = Vector2.zero;
                 no_drawing_on_current_drag = false;
+                if(canRelease)
+                {
+                    canRelease = false;
+                    SaveSprite();
+                }
             }
             mouse_was_previously_held_down = mouse_held_down;
         }

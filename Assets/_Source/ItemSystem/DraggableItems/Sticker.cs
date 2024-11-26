@@ -11,6 +11,7 @@ namespace ItemSystem.DraggableItems
         private Item _item;
         
         public Item Item => _item;
+        public SpriteRenderer SpriteRenderer => _spriteRenderer;
         
         public void SetItem(Item item)
         {

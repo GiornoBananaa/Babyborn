@@ -30,9 +30,12 @@ namespace ItemSystem.DraggableItems
         public void Update()
         {
             if (!IsDragged || !enabled || _isAnimation) return;
-            
             Vector2 mouseWorldPos = _camera!.ScreenToWorldPoint(Pointer.current.position.value);
             transform.position = mouseWorldPos + _offset;
+            if (!Pointer.current.press.IsPressed())
+            {
+                EndDrag();
+            }
         }
 
         private void OnDestroy()
@@ -73,6 +76,7 @@ namespace ItemSystem.DraggableItems
             {
                 _animation?.Kill();
             }
+            
             IsDragged = true;
             _offset = transform.position - _camera!.ScreenToWorldPoint(Pointer.current.position.value);
             OnDragStarted();
