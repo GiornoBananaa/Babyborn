@@ -9,6 +9,7 @@ namespace ClothesSystem
     {
         [field: SerializeField] public ItemCategory Category { get; private set; }
         [field: SerializeField] public int MaxSelectedCount { get; private set; }
+        [field: SerializeField] public bool CanSelectNone { get; private set; } = true;
         [field: SerializeField] public bool UnselectOldSelection { get; private set; } = true;
         [field: SerializeField] public bool SelectByPointerUp { get; private set; } = true;
         [field: SerializeField] public ItemCategory[] OverlappedCategories { get; private set; } = Array.Empty<ItemCategory>();

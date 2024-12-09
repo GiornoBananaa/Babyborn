@@ -66,7 +66,7 @@ namespace FreeDraw
             byte[] textureBytes = drawable_sprite.texture.EncodeToPNG();
             if (!File.Exists(Application.persistentDataPath + "/" + spriteFileName))
             {
-                File.Create(Application.persistentDataPath + "/" + spriteFileName).Write(textureBytes);
+                File.Create(Application.persistentDataPath + "/" + spriteFileName).Close();
             }
             else
             {

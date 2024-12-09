@@ -13,6 +13,8 @@ namespace ItemSystem.DraggableItems
         
         public Item Item => _item;
         public SpriteRenderer SpriteRenderer => _spriteRenderer;
+
+        public event Action<Sticker> OnPlaced;
         
         public void SetItem(Item item)
         {
@@ -77,6 +79,7 @@ namespace ItemSystem.DraggableItems
             if (surface != null)
             {
                 transform.SetParent(surface.transform);
+                OnPlaced?.Invoke(this);
                 //_spriteRenderer.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
             }
             else

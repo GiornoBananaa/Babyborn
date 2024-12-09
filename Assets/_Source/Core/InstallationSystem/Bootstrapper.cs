@@ -7,15 +7,16 @@ namespace Core.InstallationSystem
 {
     public class Bootstrapper : IStartable
     {
+        private readonly ItemSaver _itemSaver;
         [Inject]
-        public Bootstrapper(ItemSelector itemSelector, LocationTransition locationTransition)
+        public Bootstrapper(ItemSaver itemSaver, LocationTransition locationTransition)
         {
-        
+            _itemSaver = itemSaver;
         }
 
         void IStartable.Start()
         {
-        
+            _itemSaver.LoadAllItems();
         }
     }
 }

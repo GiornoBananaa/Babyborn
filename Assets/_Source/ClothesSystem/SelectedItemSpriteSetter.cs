@@ -34,12 +34,12 @@ namespace ClothesSystem
             {
                 _spriteRenderer.enabled = true;
                 _spriteRenderer.sprite = item.Sprites[_spriteIndex];
-                if (_spriteMask != null)
-                {
-                    _spriteMask.sprite = item.Sprites[_spriteIndex];
-                }
             }
-            else
+            if (_spriteMask != null)
+            {
+                _spriteMask.sprite = item.Sprites[_spriteIndex];
+            }
+            if (_image != null)
             {
                 _image.enabled = true;
                 _image.sprite = item.Sprites[_spriteIndex];
@@ -53,10 +53,6 @@ namespace ClothesSystem
             if(_item != item) return;
             
             if (_spriteRenderer != null)
-            {
-                _spriteRenderer.enabled = false;
-            }
-            else
             {
                 _spriteRenderer.enabled = false;
             }

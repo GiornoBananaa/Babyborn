@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Category>k__BackingField: 7
   <MaxSelectedCount>k__BackingField: 1
+  <CanSelectNone>k__BackingField: 0
   <UnselectOldSelection>k__BackingField: 1
+  <SelectByPointerUp>k__BackingField: 1
   <OverlappedCategories>k__BackingField: 

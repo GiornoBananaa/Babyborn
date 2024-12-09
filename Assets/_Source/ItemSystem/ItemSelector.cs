@@ -13,6 +13,7 @@ namespace ItemSystem
     {
         private readonly Dictionary<ItemCategory, HashSet<Item>> _selectedItems = new();
         private readonly Dictionary<ItemCategory, int> _maxSelectionsCounts = new();
+        private readonly Dictionary<ItemCategory, bool> _canSelectNone = new();
         private readonly Dictionary<ItemCategory, bool> _unselectOldSelections = new();
         private readonly Dictionary<ItemCategory, ItemCategory[]> _overlappingSelections = new();
 
@@ -29,6 +30,7 @@ namespace ItemSystem
                     _selectedItems.Add(config.Category, new HashSet<Item>());
                 }
                 _maxSelectionsCounts.Add(config.Category, config.MaxSelectedCount);
+                _canSelectNone.Add(config.Category, config.CanSelectNone);
                 _unselectOldSelections.Add(config.Category, config.UnselectOldSelection);
                 _overlappingSelections.Add(config.Category, config.OverlappedCategories);
             }
@@ -49,7 +51,8 @@ namespace ItemSystem
             if(_selectedItems.TryGetValue(item.Category, out var selected)
                && selected.Contains(item))
             {
-                Unselect(item);
+                if(_canSelectNone[item.Category])
+                    Unselect(item);
             }
             else
             {

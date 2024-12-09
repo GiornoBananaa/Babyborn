@@ -12,6 +12,10 @@
         Nails = 7,
         NailsColor = 8,
         Sticker = 9,
-        Tool = 10
+        Tool = 10,
+        Eyes = 11,
+        Cheeks = 12,
+        Lips = 13,
+        Eyebrows = 14,
     }
 }

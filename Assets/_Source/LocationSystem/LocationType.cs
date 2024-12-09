@@ -2,8 +2,9 @@
 {
     public enum LocationType
     {
-        Clothes,
-        Nails,
-        NailsColouring
+        Clothes = 0,
+        Nails = 1,
+        NailsColouring = 2,
+        Makeup = 3,
     }
 }

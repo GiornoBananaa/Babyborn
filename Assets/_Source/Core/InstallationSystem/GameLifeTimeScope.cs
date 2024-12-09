@@ -35,6 +35,7 @@ namespace Core.InstallationSystem
             #region Item
             builder.Register<ItemContainer>(Lifetime.Singleton);
             builder.Register<ItemSelector>(Lifetime.Singleton);
+            builder.Register<ItemSaver>(Lifetime.Singleton);
             
             builder.RegisterComponent(_itemMenuViews).As<IEnumerable<ItemMenuView>>();
             builder.RegisterComponent(_itemCategoryButtons).As<IEnumerable<ItemCategoryButton>>();

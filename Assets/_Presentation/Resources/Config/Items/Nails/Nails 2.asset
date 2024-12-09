@@ -17,5 +17,6 @@ MonoBehaviour:
   <AlignSizeByWidth>k__BackingField: 0
   <Unlocked>k__BackingField: 0
   <Sprites>k__BackingField:
-  - {fileID: 7830974059679776747, guid: f9e569bfa5504c940b63421e44a936f3, type: 3}
-  - {fileID: 435584650456809888, guid: ff25f69cf175a33409e93af7cb7b2f0f, type: 3}
+  - {fileID: 21300000, guid: f9e569bfa5504c940b63421e44a936f3, type: 3}
+  - {fileID: 21300000, guid: ff25f69cf175a33409e93af7cb7b2f0f, type: 3}
+  - {fileID: 21300000, guid: f8a443176a4a62d4c9b4c0cc73ecf71f, type: 3}

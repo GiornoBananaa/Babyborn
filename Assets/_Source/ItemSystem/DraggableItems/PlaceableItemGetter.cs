@@ -61,13 +61,34 @@ namespace ItemSystem.DraggableItems
         {
             LoadStickers();
         }
+
+        private void DeleteData()
+        {
+            string path = Application.persistentDataPath + "/" + STICKER_SAVE;
+            string countPath = Application.persistentDataPath + "/" + STICKER_COUNT_SAVE;
+            if(!File.Exists(countPath)) return;
+            BinaryFormatter formatter = new BinaryFormatter();
+            FileStream countFileStream = new FileStream(countPath, FileMode.Open);
+            int count = (int)formatter.Deserialize(countFileStream);
+            countFileStream.Close();
+            for (int i = 0; i < count; i++)
+            {
+                if(!File.Exists(path+i)) return;
+                File.Delete(path+i);
+            }
+            File.Delete(countPath);
+        }
         
         private void SaveStickers()
         {
+            DeleteData();
+            
             BinaryFormatter formatter = new BinaryFormatter();
             
             string path = Application.persistentDataPath + "/" + STICKER_SAVE;
+            string countPath = Application.persistentDataPath + "/" + STICKER_COUNT_SAVE;
             int index = 0;
+            
             foreach (var sticker in _stickers)
             {
                 if(File.Exists(path+index))
@@ -80,7 +101,7 @@ namespace ItemSystem.DraggableItems
                 index++;
             }
             
-            string countPath = Application.persistentDataPath + "/" + STICKER_COUNT_SAVE;
+            
             FileStream countFileStream = new FileStream(countPath, FileMode.Create);
             formatter.Serialize(countFileStream, index);
             countFileStream.Close();
@@ -111,7 +132,7 @@ namespace ItemSystem.DraggableItems
                 _stickerCopier.AddSticker(sticker);
                 sticker.StartDrag();
                 sticker.EndDrag();
-                sticker.OnDragEnd += OnPlaced;
+                sticker.OnPlaced += OnPlaced;
                 sticker.OnReturn += ReturnSticker;
                 stream.Close();
             }
@@ -141,16 +162,21 @@ namespace ItemSystem.DraggableItems
             _stickers.Add(sticker);
             sticker.SetSprite(item.Sprite);
             sticker.StartDrag();
-            sticker.OnDragEnd += OnPlaced;
+            sticker.OnPlaced += OnPlaced;
+            sticker.OnDragEnd += OnDragEnd;
             sticker.OnReturn += ReturnSticker;
             
         }
-
-        private void OnPlaced(DraggableItem item)
+        
+        private void OnDragEnd(DraggableItem item)
         {
-            _stickerCopier.AddSticker((Sticker)item);
-            SaveStickers();
             UnselectSticker(item);
+        }
+        
+        private void OnPlaced(Sticker item)
+        {
+            _stickerCopier.AddSticker(item);
+            SaveStickers();
         }
         
         private void UnselectSticker(DraggableItem item)
@@ -165,6 +191,7 @@ namespace ItemSystem.DraggableItems
             _stickers.Remove((Sticker)item);
             _stickerCopier.RemoveSticker((Sticker)item);
             Destroy(item.gameObject);
+            SaveStickers();
         }
 
 

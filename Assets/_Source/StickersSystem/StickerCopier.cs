@@ -32,7 +32,7 @@ namespace StickersSystem
             _originalStickers.Remove(id);
             foreach (var copy in _copiedStickers[id])
             {
-                Destroy(copy);
+                Destroy(copy.gameObject);
             }
             _copiedStickers.Remove(sticker.GetInstanceID());
         }

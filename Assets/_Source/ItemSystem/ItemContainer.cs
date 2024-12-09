@@ -28,7 +28,7 @@ namespace ItemSystem
             return _items[category].First(item => item.ID == id);
         }
         
-        public Dictionary<ItemCategory, Item[]> GetAll()
+        public Dictionary<ItemCategory, Item[]> GetAllByCategory()
         {
             Dictionary<ItemCategory, Item[]> items = new Dictionary<ItemCategory, Item[]>();
             foreach (var itemCategory in _items.Keys)
@@ -36,6 +36,17 @@ namespace ItemSystem
                 items.Add(itemCategory, _items[itemCategory].ToArray());
             }
             return items;
+        }
+        
+        public Item[] GetAll()
+        {
+            List<Item> items = new List<Item>();
+            foreach (var itemValue in _items.Values)
+            {
+                foreach (Item item in itemValue)
+                    items.Add(item);
+            }
+            return items.ToArray();
         }
     
         private void Add(ItemDataSO itemData)
