@@ -424,7 +424,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 7916911e18911cb4990c0c4737fa82f3, type: 3}
     - target: {fileID: 1536633354696687561, guid: f280062ca04a1754dafd13580d3c6945, type: 3}
       propertyPath: m_MaskAlphaCutoff
-      value: 0.984
+      value: 0.771
       objectReference: {fileID: 0}
     - target: {fileID: 1778078083457121395, guid: f280062ca04a1754dafd13580d3c6945, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -1432,7 +1432,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 7916911e18911cb4990c0c4737fa82f3, type: 3}
     - target: {fileID: 1536633354696687561, guid: f280062ca04a1754dafd13580d3c6945, type: 3}
       propertyPath: m_MaskAlphaCutoff
-      value: 0.984
+      value: 0.771
       objectReference: {fileID: 0}
     - target: {fileID: 3465865105113197074, guid: f280062ca04a1754dafd13580d3c6945, type: 3}
       propertyPath: m_Name
@@ -1951,7 +1951,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 7916911e18911cb4990c0c4737fa82f3, type: 3}
     - target: {fileID: 1536633354696687561, guid: f280062ca04a1754dafd13580d3c6945, type: 3}
       propertyPath: m_MaskAlphaCutoff
-      value: 0.984
+      value: 0.771
       objectReference: {fileID: 0}
     - target: {fileID: 3465865105113197074, guid: f280062ca04a1754dafd13580d3c6945, type: 3}
       propertyPath: m_Name
@@ -3372,7 +3372,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 7916911e18911cb4990c0c4737fa82f3, type: 3}
     - target: {fileID: 1536633354696687561, guid: f280062ca04a1754dafd13580d3c6945, type: 3}
       propertyPath: m_MaskAlphaCutoff
-      value: 0.984
+      value: 0.771
       objectReference: {fileID: 0}
     - target: {fileID: 3465865105113197074, guid: f280062ca04a1754dafd13580d3c6945, type: 3}
       propertyPath: m_Name
@@ -8550,7 +8550,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 7916911e18911cb4990c0c4737fa82f3, type: 3}
     - target: {fileID: 1536633354696687561, guid: f280062ca04a1754dafd13580d3c6945, type: 3}
       propertyPath: m_MaskAlphaCutoff
-      value: 0.984
+      value: 0.771
       objectReference: {fileID: 0}
     - target: {fileID: 3465865105113197074, guid: f280062ca04a1754dafd13580d3c6945, type: 3}
       propertyPath: m_Name
