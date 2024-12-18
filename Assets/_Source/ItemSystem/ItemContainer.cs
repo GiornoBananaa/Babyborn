@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.InstallationSystem.DataLoadingSystem;
 using UnityEngine;
@@ -20,7 +21,7 @@ namespace ItemSystem
 
         public Item[] Get(ItemCategory category)
         {
-            return _items[category].ToArray();
+            return _items.TryGetValue(category, out var item) ? item.ToArray() : Array.Empty<Item>();
         }
         
         public Item Get(ItemCategory category, int id)

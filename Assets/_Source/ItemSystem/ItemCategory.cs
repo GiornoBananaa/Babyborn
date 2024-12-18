@@ -17,5 +17,6 @@
         Cheeks = 12,
         Lips = 13,
         Eyebrows = 14,
+        Food = 15,
     }
 }
