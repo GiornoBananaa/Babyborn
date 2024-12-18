@@ -3,17 +3,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
-using DG.Tweening.Plugins.Core.PathCore;
-using NUnit.Framework;
 using StickersSystem;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 using VContainer;
 
 namespace ItemSystem.DraggableItems
 {
-    public class PlaceableItemGetter : MonoBehaviour
+    public class StickerItemGetter : MonoBehaviour
     {
         [Serializable]
         public class StickerData

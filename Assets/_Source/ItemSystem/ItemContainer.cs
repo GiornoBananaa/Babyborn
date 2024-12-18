@@ -56,8 +56,9 @@ namespace ItemSystem
             {
                 _items.Add(itemData.Category, new HashSet<Item>());
             }
-            
-            Item item = new Item(itemData.Sprites, itemData.Category, itemData.SpriteCenterOffset, itemData.GetInstanceID(), itemData.AlignSizeByWidth, itemData.Unlocked);
+
+            Item item = new Item(itemData.Sprites, itemData.Category, itemData.SpriteCenterOffset, itemData.GetInstanceID(), itemData.AlignSizeByWidth,
+                itemData.Unlocked, itemData.Properties.ToDictionary(property => property.Name, property => property.Value), itemData.SaveSelection);
             _items[item.Category].Add(item);
         }
     }

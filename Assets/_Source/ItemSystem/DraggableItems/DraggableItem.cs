@@ -41,7 +41,6 @@ namespace ItemSystem.DraggableItems
         private void OnDestroy()
         {
             _animation?.Kill();
-            OnReturn?.Invoke(this);
         }
 
         public void SetSprite(Sprite sprite)
@@ -98,13 +97,16 @@ namespace ItemSystem.DraggableItems
             {
                 IsDragged = false;
             }
-            _animation = transform.DOLocalMove(_defaultPosition, 0.2f).OnComplete(() =>
-            {
-                _isAnimation = false;
-                _animation.Complete();
-                OnReturn?.Invoke(this);
-            });
+            _animation = transform.DOLocalMove(_defaultPosition, 0.2f).OnComplete(ReturnItem);
         }
+
+        protected void ReturnItem()
+        {
+            _isAnimation = false;
+            _animation.Complete();
+            OnReturn?.Invoke(this);
+        }
+        
         protected virtual void OnDragStarted(){}
         protected virtual void OnDragEnded(){}
     }

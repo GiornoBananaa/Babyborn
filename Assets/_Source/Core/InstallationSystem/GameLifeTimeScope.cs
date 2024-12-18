@@ -22,7 +22,7 @@ namespace Core.InstallationSystem
         protected override void Configure(IContainerBuilder builder)
         {
             builder.RegisterEntryPoint<Bootstrapper>();
-
+            
             #region DataLoad
             IResourceLoader resourceLoader = new ResourceLoader();
             IRepository<ScriptableObject> dataRepository = new DataRepository<ScriptableObject>();
@@ -30,6 +30,11 @@ namespace Core.InstallationSystem
             LoadResources(resourceLoader, dataRepository);
             
             builder.RegisterInstance(dataRepository);
+            #endregion
+            
+            #region Doll
+            builder.Register<DollStatus>(Lifetime.Singleton);
+            builder.Register<DollStatusSaver>(Lifetime.Singleton);
             #endregion
             
             #region Item

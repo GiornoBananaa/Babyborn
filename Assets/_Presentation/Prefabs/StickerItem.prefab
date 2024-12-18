@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6076893251126166687}
   - component: {fileID: 3129280507100526345}
   m_Layer: 0
-  m_Name: PlaceableItem
+  m_Name: StickerItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

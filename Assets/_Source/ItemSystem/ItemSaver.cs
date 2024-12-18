@@ -46,6 +46,7 @@ namespace ItemSystem
         
         private void SaveItem(Item item)
         {
+            if(!item.SaveSelection) return;
             string path = string.Format(_globalPath, item.ID);
             Debug.Log("Saving item to " + path);
             string json = JsonUtility.ToJson(new ItemData
